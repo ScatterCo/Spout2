@@ -27,7 +27,6 @@ target_link_libraries(${PROJECT_NAME} opengl32)
 target_include_directories(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${LIB_SRC_DIR}>
                                                    $<INSTALL_INTERFACE:include>)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${LIB_SRC_DIR}/SpoutSDK.h")
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 
 install(
@@ -39,14 +38,20 @@ install(
     PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 )
 
+#todo i cant get this to work with debug and release
 include(CMakePackageConfigHelpers)
 configure_package_config_file("${CMAKE_CURRENT_LIST_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
                               "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
                               INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake")
 
 install(
-	FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-	DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake"
+  FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake"
+)
+
+install(
+	FILES ${LIB_HEADERS}
+	DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 )
 
 install(
