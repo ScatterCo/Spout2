@@ -1,0 +1,7 @@
+
+@PACKAGE_INIT@
+
+if(NOT TARGET Spout2)
+    include("${CMAKE_CURRENT_LIST_DIR}/Spout2Targets.cmake")
+    get_target_property(Spout2_INCLUDE_DIR Spout2 INTERFACE_INCLUDE_DIRECTORIES)
+endif()
