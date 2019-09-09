@@ -14,9 +14,11 @@ file(GLOB LIB_HEADERS
 
 option(SPOUT2_BUILD_STATIC "build static version of lib" ON)
 
+
 if(SPOUT2_BUILD_STATIC)
 	add_library(${PROJECT_NAME} STATIC ${LIB_SOURCES} ${LIB_HEADERS})
 else()
+  add_definitions(SPOUT_BUILD_DLL SPOUTSDK_EXPORTS)
 	add_library(${PROJECT_NAME} SHARED ${LIB_SOURCES} ${LIB_HEADERS})
 endif()
 
@@ -25,7 +27,6 @@ target_link_libraries(${PROJECT_NAME} opengl32)
 target_include_directories(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${LIB_SRC_DIR}>
                                                    $<INSTALL_INTERFACE:include>)
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC SPOUT_BUILD_DLL SPOUTSDK_EXPORTS)
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${LIB_SRC_DIR}/SpoutSDK.h")
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 
